@@ -37,18 +37,18 @@ API works with Session and as well token authentication.
 BROWSABLE API (can used with any browser):
 
 - API main summary page : http://127.0.0.1:8000/api/,  Methods: OPTIONS, GET
-- User Register: http://127.0.0.1:8000/api/api/api-auth/register/, Methods: POST, OPTIONS
-- User Login: http://127.0.0.1:8000/api/api/api-auth/login/,   Methods: GET, POST, PUT, HEAD, OPTIONS
-- User Update: http://127.0.0.1:8000/api/api/api-auth/update-user/,    Methods: GET, PUT, HEAD, OPTIONS
-- Password Update: http://127.0.0.1:8000/api/api/api-auth/update-password/, Methods:  PUT, OPTIONS
-- Task List and Create: http://127.0.0.1:8000/api/api/tasks/,  Methods: GET, POST, HEAD, OPTIONS
-- Task Detail: http://127.0.0.1:8000/api/api/task/<task-id>/, Methods: GET, HEAD, OPTIONS
-- Task Update: http://127.0.0.1:8000/api/api/task/<task-id>/update/, Methods: GET, PUT, HEAD, OPTIONS
-- Task Delete: http://127.0.0.1:8000/api/api/task/<task-id>/delete/, Methods: DELETE, OPTIONS
-- Sub Task List and Create: http://127.0.0.1:8000/api/api/task/<task-id>/subtasks/, Methods: GET, POST, HEAD, OPTIONS
-- Sub Task Detail: http://127.0.0.1:8000/api/api/subtask/<subtask-id>/, Methods: GET, HEAD, OPTIONS
-- Sub Task Update: http://127.0.0.1:8000/api/api/subtask/<subtask-id>/update/, Methods:  GET, PUT, HEAD, OPTIONS
-- Sub Task Delete: http://127.0.0.1:8000/api/api/subtask/<subtask-id>/delete/, Methods: DELETE, OPTIONS
+- User Register: http://127.0.0.1:8000/api/api-auth/register/, Methods: POST, OPTIONS
+- User Login: http://127.0.0.1:8000/api/api-auth/login/,   Methods: GET, POST, PUT, HEAD, OPTIONS
+- User Update: http://127.0.0.1:8000/api/api-auth/update-user/,    Methods: GET, PUT, HEAD, OPTIONS
+- Password Update: http://127.0.0.1:8000/api/api-auth/update-password/, Methods:  PUT, OPTIONS
+- Task List and Create: http://127.0.0.1:8000/api/tasks/,  Methods: GET, POST, HEAD, OPTIONS
+- Task Detail: http://127.0.0.1:8000/api/task/<task-id>/, Methods: GET, HEAD, OPTIONS
+- Task Update: http://127.0.0.1:8000/api/task/<task-id>/update/, Methods: GET, PUT, HEAD, OPTIONS
+- Task Delete: http://127.0.0.1:8000/api/task/<task-id>/delete/, Methods: DELETE, OPTIONS
+- Sub Task List and Create: http://127.0.0.1:8000/api/task/<task-id>/subtasks/, Methods: GET, POST, HEAD, OPTIONS
+- Sub Task Detail: http://127.0.0.1:8000/api/subtask/<subtask-id>/, Methods: GET, HEAD, OPTIONS
+- Sub Task Update: http://127.0.0.1:8000/api/subtask/<subtask-id>/update/, Methods:  GET, PUT, HEAD, OPTIONS
+- Sub Task Delete: http://127.0.0.1:8000/api/subtask/<subtask-id>/delete/, Methods: DELETE, OPTIONS
 
 
 Several important navigation links included to tasks and subtask API for better navigation in browsable api.
