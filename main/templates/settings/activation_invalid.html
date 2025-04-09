@@ -1,0 +1,28 @@
+{% extends "main/base.html" %}
+{% block content %}
+
+<section class="vh-100" style="background-color: #eee;">
+    <div class="container py-5 h-100">       
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="card w-75 shadow-custom">
+                <div class="card-body">
+                    <!--<div class="container bg-dark text-white py-5 border border-5 border-danger mx-auto my-5">-->
+                        <div class="container py-5">
+                            <div class="row">
+                                <div class="col-md-2 text-center">
+                                        <p><i class="fa fa-exclamation-triangle fa-5x text-center text-danger"></i><br/>Access Denied</p>
+                                </div>
+                                <div class="col-md-10">
+                                        <h3></h3>
+                                        <p>Expired account activation link, please turn to the site admins.</p>
+                                        <a class="btn btn-dark" href="{% url 'home' %}">Back</a>
+                                </div>
+                            </div>
+                        </div>
+                    <!--</div> -->
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

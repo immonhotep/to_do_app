@@ -1,0 +1,38 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="py-5">
+        <div class="card rounded-3 shadow-custom2">
+          <div class="card-body p-4">
+          {% include "main/messages.html" %}
+
+            <h4 class="text-center my-3 pb-3">Update {{title}}</h4>
+
+                <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2" method="POST">
+                {% csrf_token %}
+                    
+                <div class="col-12">
+                    
+                    <div data-mdb-input-init class="form-inline py-1">
+                        {% for field in form %}
+                        <div class="py-1 my-1">{{field}}</div>
+                        {% endfor %}                  
+                        </div>
+                    <button type="submit" class="btn btn-primary" data-mdb-tooltip-init title="Save" data-mdb-placement="bottom"><i class="fa-solid fa-floppy-disk"></i></button>
+                    {% if task %}
+                    <a href="{% url 'subtask' task.pk %}" data-mdb-tooltip-init title="Manage subtasks" data-mdb-placement="bottom" class="btn btn-info"><i class="fa fa-tasks" aria-hidden="true"></i><small class="text-dark"> ({{task.subtask_set.count}})</small></a>
+                    {% endif %}
+                    <a href="javascript:history.back()"  class="btn btn-outline-secondary mx-2" data-mdb-tooltip-init title="Back" data-mdb-placement="bottom"><i class="fa-solid fa-circle-arrow-left fa-lg"></i></a>                  
+                    </div>                    
+                    {{form.media}}  
+                    </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

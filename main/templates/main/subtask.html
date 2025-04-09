@@ -1,0 +1,93 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-8 col-xl-6">
+        <div class="card rounded-3 shadow-custom2">
+          <div class="card-body p-4">
+          {% include "main/messages.html" %}
+
+            <p class="mb-2"><span class="h2 me-2" data-mdb-tooltip-init title="{{task.title}}">{{task.title|truncatechars:10}}</span> <span
+                class="badge bg-danger">subtasks</span></p>
+            <p class="text-muted pb-2">{{task.start_date}} <small>({{task.start_time}})</small> - {{task.due_date}} <small>({{task.due_time}})</small> </p>
+
+             <form class="d-flex justify-content-center align-items-center mb-4" method="POST" action="{% url 'subtask' task.pk %}">
+             {% csrf_token %}
+              <div class="form-outline flex-fill">
+                 {{form}}
+              </div>
+              <button type="submit"  class="btn btn-info btn-sm ms-2 ">Add</button>
+            </form>
+            {% if subtasks %}
+            <h6 class="text-center "><small>subtasks ({{count}})</small></h6>
+            <h6 class="text-start ms-4">Subtasks ready: 
+            <b class="badge badge-{% if percent >= 0 and percent < 30 %}dark{% elif percent >= 30 and percent < 50 %}danger{% elif percent >= 50 and percent < 70  %}warning{% else %}success{% endif %}">{{percent|floatformat:2}} %</b></h6>
+
+            <form name="resetform" method="POST" action={% url 'reset_subtasks' task.pk %} >
+            {% csrf_token %}
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-outline-primary btn-sm my-3">reset</button>
+            </div>
+            </form>
+
+            <form name="subcheckform" method="POST" action="{% url 'check' task.pk %}">           
+            {% csrf_token %}
+            <ul class="list-group mb-0">
+            {% for subtask in subtasks %} 
+              <li
+              
+                class="list-group-item d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">        
+                <div class="d-flex align-items-center">
+                {% if subtask.status %}
+                
+                <i class="fa-solid fa-circle-check fa-lg text-success"></i>&nbsp;&nbsp;<s data-mdb-tooltip-init title="{{subtask.title}}">{{subtask.title|truncatechars:40}}</s>
+                {% else %}
+                  <input class="form-check-input me-2" type="checkbox" name="subtask" value="{{subtask.pk}}"/>
+                  <i data-mdb-tooltip-init title="{{subtask.title}}" data-mdb-placement="bottom" >{{subtask.title|truncatechars:40}}</i>            
+                {% endif %}
+                </div>
+                <span><a href="{% url 'update_subtask' subtask.pk %}" data-mdb-tooltip-init title="Update" data-mdb-placement="bottom" >
+                  <i class="fas fa-wrench text-primary"></i></a>
+                  <span><a href="{% url 'remove_subtask' subtask.pk %}" data-mdb-tooltip-init title="Delete" data-mdb-placement="bottom" ><i class="fas fa-trash-can fa-lg text-danger"></i></a></span></span>
+              </li>
+            {% endfor %}
+            </ul>
+
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary btn-sm mx-1">Check</button>            
+           <!-- </div>  -->
+            </form>           
+              <button type="button" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#deleteSubTasksModal-{{task.pk}}" data-mdb-tooltip-init title="Delete" data-mdb-placement="bottom" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i> Remove all</button>        
+            {% include 'main/modal.html'%}
+            </div>  
+
+            {% if subtasks.has_other_pages %}
+                          <nav aria-label="Page navigation example">
+                              <ul class="pagination pagination-sm mt-6 ms-8">
+                                  {% if subtasks.has_previous %}
+                                  <li class="page-item"><a class="page-link text-white me-1 my-3" style="background-color:#4c1104;" href="?page={{subtasks.previous_page_number}}">Previous</a></li>
+                                  {% endif %}
+                                  {% for page  in subtasks.paginator.page_range %}
+                                  <li class="page-item"><a class="page-link  text-white me-1 my-3" style="background-color:#4c1104;" href="?page={{page}}">{{page}}</a></li>
+                                  {% endfor %}
+                                  {% if subtasks.has_next %}
+                                  <li class="page-item"><a class="page-link  text-white me-1 my-3" style="background-color:#4c1104;" href="?page={{subtasks.next_page_number}}">Next</a></li>
+                                  {% endif %}
+                              </ul>
+                          </nav>
+                      {% endif %}
+
+           
+            {% else %}
+            <h6 class="text-center "><small>This task have no subtasks</small></h6>
+            {% endif %}
+            <a href="javascript:history.back()"  class="btn btn-outline-secondary mx-2" data-mdb-tooltip-init title="Back" data-mdb-placement="bottom"><i class="fa-solid fa-circle-arrow-left fa-lg"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

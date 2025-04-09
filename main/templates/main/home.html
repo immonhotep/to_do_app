@@ -1,0 +1,152 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+
+<section class="vh-100" >
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="py-5">
+        <div class="card rounded-3 shadow-custom2">
+          <div class="card-body p-4">
+            {% include "main/messages.html" %}
+
+            <h4 class="text-center my-3 pb-3">Add new task to do</h4>
+
+            <form class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2" method="POST">
+            {% csrf_token %}
+              
+              <div class="col-12">
+              
+                <div data-mdb-input-init class="form-inline py-1">
+                    {% for field in form %}
+                    <div class="py-1 my-1">{{field}}</div>
+                    {% endfor %}                  
+                </div>
+                <button type="submit" class="btn btn-primary" data-mdb-tooltip-init title="Save" data-mdb-placement="bottom"><i class="fa-solid fa-floppy-disk"></i></button>
+                
+               
+              </div>
+              
+              {{form.media}}  
+            </form>
+            
+          <div class="row row-cols-lg-auto g-3 justify-content-left align-items-center mb-4 mt-4 pb-2">
+                <div class="w-25 text-center">
+                <form method="GET">
+                <select name="select" id="select" class="form-select form-control form-control-sm" aria-label="Default select example">
+                  <option value="A"  {% if request.session.selection == "A"%} selected {% endif %}>All</option>
+                  <option value="W"  {% if request.session.selection == "W"%} selected {% endif %}>Waiting</option>
+                  <option value="I"  {% if request.session.selection == "I"%} selected {% endif %}>Inprogress</option>
+                  <option value="S"  {% if request.session.selection == "S"%} selected {% endif %}>Success</option>
+                  <option value="F"  {% if request.session.selection == "F"%} selected {% endif %}>Failed</option>
+                  <option value="O"  {% if request.session.selection == "O"%} selected {% endif %}>Overdue</option>     
+                </select>
+               <!-- </form> -->
+                </div>
+                       
+                <div class="input-group w-25">     
+                  <div class="form-outline" data-mdb-input-init>
+                    <input type="search" name="search" value="{% if request.session.searching %}{{request.session.searching}}{% endif %}" class="form-control form-control-sm" />
+                    <label class="form-label">Search</label>
+                  </div>
+                  <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+                    <i class="fas fa-search"></i>
+                  </button>             
+                </div>
+                </form>
+            </div>
+
+ 
+
+
+             <h6 class="text-center my-3"><i>Your current tasks ({{count}})</i></h6>
+            <table class="table mb-4">
+              <thead>
+                <tr>
+                  <th scope="col">Todo task</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Start date</th>
+                  <th scope="col">Due date</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for task in tasks %}
+                <tr>                
+                  <td data-mdb-tooltip-init title="{{task.title}}">{{task.title|truncatechars:15}}</td>
+                  <td>
+                   {% if task.status == "W" %}
+                    <h6><span class="badge badge-info">Waiting</span></h6>              
+                   {% elif task.status == "I"  %}
+                    <h6><span class="badge badge-warning">Inprogress</span></h6>
+                   {% elif task.status == "S"  %}
+                    <h6><span class="badge badge-success">Success</span></h6>
+                   {% elif task.status == "F"  %}
+                    <h6><span class="badge badge-danger">Failed</span></h6>
+                    {% elif task.status == "O"  %}
+                    <h6><span class="badge badge-dark">Overdue</span></h6>
+                   {% endif %} 
+
+                  </td>
+                  <td>{{task.start_date}}<small> ( <i class="fa fa-hourglass-start" aria-hidden="true"></i>&nbsp;{{task.start_time}})</small></td>
+                  <td>{{task.due_date}}<small> ( <i class="fa fa-hourglass-end" aria-hidden="true"></i>&nbsp;{{task.due_time}})</small></td></td>
+                  <td>
+                    <button type="button" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#deleteModal-{{task.pk}}" data-mdb-tooltip-init title="Delete" data-mdb-placement="bottom" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash-can"></i></button>
+                    <a href="{% url 'update_task' task.pk %}" data-mdb-tooltip-init title="Update" data-mdb-placement="bottom" class="btn btn-warning btn-sm"><i class="fa-solid fa-wrench"></i></a>
+                    <a href="{% url 'subtask' task.pk %}" data-mdb-tooltip-init title="Manage subtasks" data-mdb-placement="bottom" class="btn btn-info btn-sm"><i class="fa fa-tasks" aria-hidden="true"></i><small class="text-dark"> ({{task.subtask_set.count}})</small></a>
+                    <button type="button" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#successModal-{{task.pk}}" data-mdb-tooltip-init title="Set success" data-mdb-placement="bottom" class="btn btn-success btn-sm ms-1" {% if task.status == "S" %}disabled{% endif %}><i class="fa-solid fa-circle-check"></i></button>
+                  </td>
+                </tr>
+
+                 {% include "main/modal.html" %}
+              {% endfor %}
+
+              </tbody>
+            </table>
+
+
+                      {% if tasks.has_other_pages %}
+                      <nav aria-label="Page navigation example">
+                          <ul class="pagination pagination-sm py-3">
+                            {% if tasks.has_previous %}
+                            <li class="page-item"><a class="page-link text-white mx-1 my-2" style="background-color:#077e58;" href="?page={{tasks.previous_page_number }}{% if request.GET.select %}&select={{request.GET.select}}{% endif %}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">Previous</a></li>
+                            {% endif%}
+
+                            {% for num  in tasks.paginator.page_range %}
+                            {% if tasks.number == num %}
+                            <li class="page-item"><a class="page-link text-white  mx-1 my-2" style="background-color:#077e58;"  href="">{{num}}</a></li>
+                            {% else %}
+                            <li class="page-item"><a class="page-link  text-white mx-1 my-2" style="background-color:#077e58;" href="?page={{ num }}{% if request.GET.select%}&select={{request.GET.select}}{% endif %}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">{{num}}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            {% if tasks.has_next %}
+                            <li class="page-item"><a class="page-link  text-white mx-1 my-2" style="background-color:#077e58;" href="?page={{tasks.next_page_number }}{% if request.GET.select%}&select={{request.GET.select}}{% endif %}{% if request.GET.search %}&search={{request.GET.search}}{% endif %}">Next</a></li>
+                            {% endif %}
+                    
+                          </ul>
+                    </nav>
+               
+                      {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+             
+ <script type="text/javascript">
+
+  jQuery(function() {
+    jQuery('#select').change(function() {
+        this.form.submit();
+    });
+});
+</script>
+
+
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,30 @@
+ {% extends "main/base.html" %}
+ {% block content %}
+
+<section class="vh-100" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="card w-75 shadow-custom">
+                    <div class="card-body">
+                        {% include "main/messages.html" %}
+                        <form method="POST" action="{% url 'user_signup' %}">
+                        <h3 class="py-2 text-center">Signup</h3>
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                        <label>{{field.label}}</label><br>
+                            {{field}}
+                        {% endfor %}
+                        
+                        <div class="row mb-4 py-1 my-1">
+                         
+                        <button type="submit" class="btn btn-primary btn-sm mb-4">Sign up</button>
+                        <div class="text-center">
+                            <p>Already have account? <a href="{% url 'user_login' %}">Login</a></p>
+                        </form>
+                   </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content%}
