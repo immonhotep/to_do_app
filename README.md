@@ -42,13 +42,13 @@ BROWSABLE API (can used with any browser):
 - User Update: http://127.0.0.1:8000/api/api-auth/update-user/,    Methods: GET, PUT, HEAD, OPTIONS
 - Password Update: http://127.0.0.1:8000/api/api-auth/update-password/, Methods:  PUT, OPTIONS
 - Task List and Create: http://127.0.0.1:8000/api/tasks/,  Methods: GET, POST, HEAD, OPTIONS
-- Task Detail: http://127.0.0.1:8000/api/task/<task-id>/, Methods: GET, HEAD, OPTIONS
-- Task Update: http://127.0.0.1:8000/api/task/<task-id>/update/, Methods: GET, PUT, HEAD, OPTIONS
-- Task Delete: http://127.0.0.1:8000/api/task/<task-id>/delete/, Methods: DELETE, OPTIONS
-- Sub Task List and Create: http://127.0.0.1:8000/api/task/<task-id>/subtasks/, Methods: GET, POST, HEAD, OPTIONS
-- Sub Task Detail: http://127.0.0.1:8000/api/subtask/<subtask-id>/, Methods: GET, HEAD, OPTIONS
-- Sub Task Update: http://127.0.0.1:8000/api/subtask/<subtask-id>/update/, Methods:  GET, PUT, HEAD, OPTIONS
-- Sub Task Delete: http://127.0.0.1:8000/api/subtask/<subtask-id>/delete/, Methods: DELETE, OPTIONS
+- Task Detail: http://127.0.0.1:8000/api/task/{int:task.pk}/, Methods: GET, HEAD, OPTIONS
+- Task Update: http://127.0.0.1:8000/api/task/{int:task.pk}/update/, Methods: GET, PUT, HEAD, OPTIONS
+- Task Delete: http://127.0.0.1:8000/api/task/{int:task.pk}/delete/, Methods: DELETE, OPTIONS
+- Sub Task List and Create: http://127.0.0.1:8000/api/task/{int:task.pk}/subtasks/, Methods: GET, POST, HEAD, OPTIONS
+- Sub Task Detail: http://127.0.0.1:8000/api/subtask/{int:subtask.pk}/, Methods: GET, HEAD, OPTIONS
+- Sub Task Update: http://127.0.0.1:8000/api/subtask/{int:subtask.pk}/update/, Methods:  GET, PUT, HEAD, OPTIONS
+- Sub Task Delete: http://127.0.0.1:8000/api/subtask/{int:subtask.pk}/delete/, Methods: DELETE, OPTIONS
 
 
 Several important navigation links included to tasks and subtask API for better navigation in browsable api.
@@ -118,7 +118,7 @@ curl  -H 'Authorization: Token <token>' -H "Content-Type: application/json"  -X 
 
 Get a  task subtasks (GET request, required token authentication):
 
-curl  -H 'Authorization: Token <token>' -H "Content-Type: application/json"  -X "GET" http://127.0.0.1:8000/api/task/<task-id>/subtasks/
+curl  -H 'Authorization: Token <token>' -H "Content-Type: application/json"  -X "GET" http://127.0.0.1:8000/api/task/{int:task.pk}/subtasks/
 
 Create task (POST request,required token authentication):
 
@@ -126,10 +126,10 @@ curl  -H 'Authorization: Token <token>' -H "Content-Type: application/json" http
 
 Update task (PUT request,required token authentication):
 
-curl  -H 'Authorization: Token <token>' -H "Content-Type: application/json"  -X "PUT" --data '{"title":"test","note":"test","start_date":"2025-04-05","due_date":"2025-04-05","start_time":"08:00:00","due_time":"09:00:00","status":"S"}' http://127.0.0.1:8000/api/task/<task-id>/update/
+curl  -H 'Authorization: Token <token>' -H "Content-Type: application/json"  -X "PUT" --data '{"title":"test","note":"test","start_date":"2025-04-05","due_date":"2025-04-05","start_time":"08:00:00","due_time":"09:00:00","status":"S"}' http://127.0.0.1:8000/api/task/{int:task.pk}/update/
 
 Delete task (DELETE request,required token authentication):
-curl  -H 'Authorization: Token <token>' http://127.0.0.1:8000/api/task/<task-id>/delete/  -X "DELETE"
+curl  -H 'Authorization: Token <token>' http://127.0.0.1:8000/api/task/{int:task.pk}/delete/  -X "DELETE"
 
 
 
