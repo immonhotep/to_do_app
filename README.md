@@ -90,56 +90,6 @@ python -m aiosmtpd -n -l localhost:1025
 emails will appear in the terminal
 
 
-TESTING API with CLIENT SIDE REQUEST: 
-
-For client side requests need postman or any other api client tool. 
-
-
-Simple methods with curl to send request to api (several examples):
-
-Get API authentication token with user login credentials (POST request):
-
-curl -H "Content-Type: application/json" --request POST --data '{"username":"<username>","password":"<password>"}' http://127.0.0.1:8000/api/api-auth/api-token-auth/
-
-
-User registration (POST request):
-
-curl -H "Content-Type: application/json" -X POST --data '{"username":"<username>","password":"<password1>","password2":"<password2>" "email":"<email>"}' http://127.0.0.1:8000/api/api-auth/register/
-
-
-User update (PUT request, required token authentication):
-
-curl  -H 'Authorization: Token <token>' -H "Content-Type: application/json"  -X "PUT" --data '{"username":"<username>","first_name":"<first name>","last_name":"<last name>","email":"<email>"}' http://127.0.0.1:8000/api/api-auth/update-user/
-
-Get information about the allowed request methods (OPTIONS request):
-
-curl   -H "Content-Type: application/json"  -X "OPTIONS" http://127.0.0.1:8000/api/tasks/ -i
-
-Get the current user all tasks (GET request,required token authentication):
-
-curl  -H 'Authorization: Token <token>' -H "Content-Type: application/json"  -X "GET" http://127.0.0.1:8000/api/tasks/
-
-Get a  task subtasks (GET request, required token authentication):
-
-curl  -H 'Authorization: Token <token>' -H "Content-Type: application/json"  -X "GET" http://127.0.0.1:8000/api/task/{int:task.pk}/subtasks/
-
-Create task (POST request,required token authentication):
-
-curl  -H 'Authorization: Token <token>' -H "Content-Type: application/json" http://127.0.0.1:8000/api/tasks/ -X "POST" --data '{"title":"test","start_date":"2025-05-04","start_time":"08:00:00","due_date":"2025-06-03","due_time":"08:00:00","status":"F"}'
-
-Update task (PUT request,required token authentication):
-
-curl  -H 'Authorization: Token <token>' -H "Content-Type: application/json"  -X "PUT" --data '{"title":"test","note":"test","start_date":"2025-04-05","due_date":"2025-04-05","start_time":"08:00:00","due_time":"09:00:00","status":"S"}' http://127.0.0.1:8000/api/task/{int:task.pk}/update/
-
-Delete task (DELETE request,required token authentication):
-curl  -H 'Authorization: Token <token>' http://127.0.0.1:8000/api/task/{int:task.pk}/delete/  -X "DELETE"
-
-
-
-and for subtasks working the similar way ....
-
-
-
 API security:
 
 settings.py contain throttling settings to prevent DOS and brute force attacks against API
