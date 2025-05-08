@@ -36,19 +36,22 @@ API works with Session and as well token authentication.
 
 BROWSABLE API (can used with any browser):
 
-- API main summary page : http://127.0.0.1:8000/api/,  Methods: OPTIONS, GET
-- User Register: http://127.0.0.1:8000/api/api-auth/register/, Methods: POST, OPTIONS
-- User Login: http://127.0.0.1:8000/api/api-auth/login/,   Methods: GET, POST, PUT, HEAD, OPTIONS
-- User Update: http://127.0.0.1:8000/api/api-auth/update-user/,    Methods: GET, PUT, HEAD, OPTIONS
-- Password Update: http://127.0.0.1:8000/api/api-auth/update-password/, Methods:  PUT, OPTIONS
-- Task List and Create: http://127.0.0.1:8000/api/tasks/,  Methods: GET, POST, HEAD, OPTIONS
-- Task Detail: http://127.0.0.1:8000/api/task/{int:task.pk}/, Methods: GET, HEAD, OPTIONS
-- Task Update: http://127.0.0.1:8000/api/task/{int:task.pk}/update/, Methods: GET, PUT, HEAD, OPTIONS
-- Task Delete: http://127.0.0.1:8000/api/task/{int:task.pk}/delete/, Methods: DELETE, OPTIONS
-- Sub Task List and Create: http://127.0.0.1:8000/api/task/{int:task.pk}/subtasks/, Methods: GET, POST, HEAD, OPTIONS
-- Sub Task Detail: http://127.0.0.1:8000/api/subtask/{int:subtask.pk}/, Methods: GET, HEAD, OPTIONS
-- Sub Task Update: http://127.0.0.1:8000/api/subtask/{int:subtask.pk}/update/, Methods:  GET, PUT, HEAD, OPTIONS
-- Sub Task Delete: http://127.0.0.1:8000/api/subtask/{int:subtask.pk}/delete/, Methods: DELETE, OPTIONS
+| Description              | URLS                                                       | METHODS                       |
+| ------------------------ | ---------------------------------------------------------- | ----------------------------- |                                            
+| API main summary page    | http://127.0.0.1:8000/api/                                 | OPTIONS, GET                  | 
+| User Register            | http://127.0.0.1:8000/api/api-auth/register/               | POST, OPTIONS                 |           
+| User Login               | http://127.0.0.1:8000/api/api-auth/login/                  | GET, POST, PUT, HEAD, OPTIONS |       
+| User Update              | http://127.0.0.1:8000/api/api-auth/update-user/            | GET, PUT, HEAD, OPTIONS       | 
+| Password Update          | http://127.0.0.1:8000/api/api-auth/update-password/        | PUT, OPTIONS                  |
+| Task List and Create     | http://127.0.0.1:8000/api/tasks/                           | GET, POST, HEAD, OPTIONS      |
+| Task Detail              | http://127.0.0.1:8000/api/task/{int:task.pk}/              | GET, HEAD, OPTIONS            |
+| Task Update              | http://127.0.0.1:8000/api/task/{int:task.pk}/update/       | GET, PUT, HEAD, OPTIONS       |
+| Task Delete              | http://127.0.0.1:8000/api/task/{int:task.pk}/delete/       | DELETE, OPTIONS               |
+| Sub Task List and Create | http://127.0.0.1:8000/api/task/{int:task.pk}/subtasks/     | GET, POST, HEAD, OPTIONS      |
+| Sub Task Detail          | http://127.0.0.1:8000/api/subtask/{int:subtask.pk}/        | GET, HEAD, OPTIONS            |
+| Sub Task Update          | http://127.0.0.1:8000/api/subtask/{int:subtask.pk}/update/ | GET, PUT, HEAD, OPTIONS       |
+| Sub Task Delete          | http://127.0.0.1:8000/api/subtask/{int:subtask.pk}/delete/ | DELETE, OPTIONS               |
+
 
 
 Several important navigation links included to tasks and subtask API for better navigation in browsable api.
