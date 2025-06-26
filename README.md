@@ -1,5 +1,25 @@
 #TO_DO_APP
 
+Application backend : Python/Django
+
+<p align="center">
+  <a href="https://go-skill-icons.vercel.app/">
+    <img
+      src="https://go-skill-icons.vercel.app/api/icons?i=python,django,djangorestframework"
+    />
+  </a>
+</p>
+
+Application Frontend: Html, Bootsrap css, Custom css, and Javascripts
+
+<p align="center">
+  <a href="https://go-skill-icons.vercel.app/">
+    <img
+      src="https://go-skill-icons.vercel.app/api/icons?i=html,bootstrap,css,javascript"
+    />
+  </a>
+</p>
+
 simple to do application with basic rest api, backend developed by python and django framework, frontend made with html, free bootstrap templates and custom css.
 Application only for educational purposes.
 
@@ -90,21 +110,21 @@ python -m aiosmtpd -n -l localhost:1025
 emails will appear in the terminal
 
 
-API security:
 
-settings.py contain throttling settings to prevent DOS and brute force attacks against API
+sample images from tasks and subtask pages:
 
-currently with test settings:
-Anonymous user request limited to 3/hour
-Logged in user request limited 20/hour
+![tasks](https://github.com/user-attachments/assets/da8a7a5b-8362-4f3b-b359-13ecc74ce2c3)
 
-    'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.AnonRateThrottle',
-        'rest_framework.throttling.UserRateThrottle'
-    ],
-    'DEFAULT_THROTTLE_RATES': {
-        'anon': '3/hour',
-        'user': '20/hour'
-    },
+
+![subtasks](https://github.com/user-attachments/assets/1f8e50c7-db86-4f8d-b91b-255c9e8d383f)
+
+
+
+
+
+
+
+
+
 
 
